@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>EduGenie - AI Learning Assistant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #4f46e5;
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .form-container {
+            margin-top: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            resize: vertical;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #4f46e5;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #3730a3;
+        }
+
+        .answer-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f5f7ff;
+            border-left: 5px solid #4f46e5;
+        }
+
+        .answer-title {
+            color: #4f46e5;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .question {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .answer {
+            color: #333;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+
+            <div class="logo">🎓</div>
+
+            <h1>EduGenie</h1>
+
+            <p class="subtitle">
+                Google Gemini Powered Learning Assistant
+            </p>
+
+        </div>
+
+
+        <!-- Question Form -->
+        <div class="form-container">
+
+            <form action="/ask" method="post">
+
+                <label for="question">
+                    Ask EduGenie a Question
+                </label>
+
+                <textarea
+                    id="question"
+                    name="question"
+                    placeholder="Type your question here..."
+                    required
+                >{{ question or "" }}</textarea>
+
+                <button type="submit">
+                    🤖 Ask EduGenie
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Answer -->
+        {% if answer %}
+
+        <div class="answer-box">
+
+            <div class="answer-title">
+                ✨ EduGenie Answer
+            </div>
+
+            {% if question %}
+
+            <div class="question">
+                <strong>Your Question:</strong><br>
+                {{ question }}
+            </div>
+
+            {% endif %}
+
+            <div class="answer">
+                {{ answer }}
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- Features -->
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🤖
+                </div>
+
+                <div class="feature-title">
+                    AI Powered
+                </div>
+
+                <div class="feature-text">
+                    Powered by Google Gemini AI
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📚
+                </div>
+
+                <div class="feature-title">
+                    Learn Easily
+                </div>
+
+                <div class="feature-text">
+                    Simple educational explanations
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <div class="feature-title">
+                    Fast Response
+                </div>
+
+                <div class="feature-text">
+                    Get answers quickly
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="footer">
+
+            <p>
+                EduGenie © 2026 | Google Gemini Powered Learning Assistant
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
